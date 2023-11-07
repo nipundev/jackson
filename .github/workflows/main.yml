@@ -53,7 +53,7 @@ jobs:
       BOXYHQ_LICENSE_KEY: 'dummy-license'
     strategy:
       matrix:
-        node-version: [18]
+        node-version: [20]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     services:
@@ -105,7 +105,7 @@ jobs:
         ports:
           - '8000:8000'
       mocksaml:
-        image: boxyhq/mock-saml:1.0.9
+        image: boxyhq/mock-saml:1.2.0
         ports:
           - 4000:4000
         env:
@@ -117,7 +117,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           always-auth: true
           node-version: ${{ matrix.node-version }}
@@ -408,7 +408,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18]
+        node-version: [20]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -417,7 +417,7 @@ jobs:
       - run: echo ${{ needs.ci.outputs.PUBLISH_TAG }}
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           always-auth: true
           node-version: ${{ matrix.node-version }}
