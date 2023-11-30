@@ -42,6 +42,8 @@ export const storeNamespacePrefix = {
     groups: 'dsync:groups',
     members: 'dsync:members',
     providers: 'dsync:providers',
+    events: 'dsync:events',
+    lock: 'dsync:lock',
   },
   saml: {
     config: 'saml:config',
@@ -331,6 +333,10 @@ export const transformConnections = (connections: Array<SAMLSSORecord | OIDCSSOR
 export const transformConnection = (connection: SAMLSSORecord | OIDCSSORecord) => {
   if ('idpMetadata' in connection) {
     connection.idpMetadata.friendlyProviderName = findFriendlyProviderName(connection.idpMetadata.provider);
+  }
+
+  if ('oidcProvider' in connection) {
+    connection.oidcProvider.friendlyProviderName = findFriendlyProviderName(connection.oidcProvider.provider);
   }
 
   if (!('deactivated' in connection)) {

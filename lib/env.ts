@@ -80,11 +80,14 @@ const jacksonOptions: JacksonOption = {
     secret: process.env.WEBHOOK_SECRET || '',
   },
   dsync: {
+    webhookBatchSize: process.env.DSYNC_WEBHOOK_BATCH_SIZE
+      ? Number(process.env.DSYNC_WEBHOOK_BATCH_SIZE)
+      : undefined,
     providers: {
       google: {
-        clientId: process.env.GOOGLE_CLIENT_ID || '',
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-        callbackUrl: process.env.GOOGLE_REDIRECT_URI || '',
+        clientId: process.env.DSYNC_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID || '',
+        clientSecret: process.env.DSYNC_GOOGLE_CLIENT_SECRET || process.env.GOOGLE_CLIENT_SECRET || '',
+        callbackUrl: process.env.DSYNC_GOOGLE_REDIRECT_URI || process.env.GOOGLE_REDIRECT_URI || '',
       },
     },
   },

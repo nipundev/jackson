@@ -6,6 +6,10 @@ export * from './saml-tracer/types';
 export * from './directory-sync/types';
 export * from './event/types';
 
+import db from './db/db';
+
+export type DB = Awaited<ReturnType<typeof db.new>>;
+
 interface SSOConnection {
   defaultRedirectUrl: string;
   redirectUrl: string[] | string;
@@ -75,7 +79,8 @@ export interface OIDCSSORecord extends SSOConnection {
   clientID: string; // set by Jackson
   clientSecret: string; // set by Jackson
   oidcProvider: {
-    provider?: string;
+    provider: string | 'Unknown';
+    friendlyProviderName: string | null;
     discoveryUrl?: string;
     metadata?: IssuerMetadata;
     clientId?: string;
@@ -435,7 +440,8 @@ export interface JacksonOption {
   };
   webhook?: Webhook;
   dsync?: {
-    providers: {
+    webhookBatchSize?: number;
+    providers?: {
       google: {
         clientId: string;
         clientSecret: string;
@@ -570,3 +576,10 @@ export type GetByProductParams = {
 };
 
 export type SortOrder = 'ASC' | 'DESC';
+
+export type Product = {
+  id: string;
+  name: string;
+  teamId: string;
+  teamName: string;
+};
